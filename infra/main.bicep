@@ -52,7 +52,20 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 // A full example that leverages azd bicep modules can be seen in the todo-python-mongo template:
 // https://github.com/Azure-Samples/todo-python-mongo/tree/main/infra
 
+module naming './modules/naming.bicep' = {
+  name: 'naming'
+  scope: rg
+}
 
+module applicationServices './modules/application-resources.bicep' = {
+  name: 'application-services'
+  scope: rg
+  params: {
+    location: location
+    isProd: false
+    resourceNames: naming.outputs.resourceNames
+  }
+}
 
 // Add outputs from the deployment here, if needed.
 //
