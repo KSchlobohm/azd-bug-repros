@@ -6,6 +6,14 @@
 
 # Name of the application.
 name: azd-starter
+hooks:
+  preprovision:
+    posix:
+      run: ./infra/scripts/preprovision.sh
+    windows:
+      run: ./infra/scripts/preprovision.ps1
+  
+
 # services:
 #   ## An example for a python API service.
 #   ## The service is named 'python-api'.
